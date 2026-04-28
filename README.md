@@ -74,3 +74,32 @@ docker compose up -d --build
 
 - If another service already uses ports `80/443` (for example host Nginx/Apache), stop it or move it.
 - Caddy certificate data is persisted in Docker volumes (`caddy_data`, `caddy_config`).
+
+## Updating after changes
+
+### Standard flow (Docker Compose v2)
+
+Use this for normal updates after you push new commits:
+
+```bash
+git pull
+docker compose up -d --build
+```
+
+### Legacy fallback (older docker-compose v1)
+
+If your server still uses `docker-compose` v1 and hits recreate errors, use:
+
+```bash
+git pull
+docker-compose build portfolio
+docker-compose rm -sf portfolio
+docker-compose up -d portfolio
+```
+
+### Useful checks
+
+```bash
+docker compose ps
+docker compose logs -f portfolio
+```
