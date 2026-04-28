@@ -1,0 +1,42 @@
+/* Base layout and shared section styles */
+:root {
+  --hero-bg: #1a1a2e;
+  --hero-text: #eee;
+  --section-bg: #fff;
+  --section-alt: #f5f5f5;
+  --text: #333;
+  --text-muted: #666;
+  --accent: #42b883;
+  --card-bg: #fff;
+  --border: #eee;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.section-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  color: var(--text);
+}
