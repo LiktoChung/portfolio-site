@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Other Services | Likto Chung</title>
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --surface: #ffffff;
+        --text: #1f2937;
+        --muted: #4b5563;
+        --accent: #42b883;
+        --border: #e5e7eb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .top-bar {
+        background: #1a1a2e;
+        color: #fff;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .top-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0.8rem 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .top-title {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 650;
+      }
+
+      .back-link {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+
+      .back-link:hover {
+        color: var(--accent);
+      }
+
+      .content {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2rem 1.2rem 3rem;
+      }
+
+      .intro-title {
+        margin: 0 0 0.4rem;
+        font-size: 1.7rem;
+      }
+
+      .intro-text {
+        margin: 0 0 1.6rem;
+        color: var(--muted);
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem;
+        box-shadow: 0 4px 14px rgba(17, 24, 39, 0.06);
+      }
+
+      .card h2 {
+        margin: 0 0 0.45rem;
+        font-size: 1.1rem;
+      }
+
+      .card p {
+        margin: 0 0 0.8rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .card a {
+        display: inline-block;
+        text-decoration: none;
+        color: #0b6b46;
+        font-weight: 600;
+      }
+
+      .card a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top-bar">
+      <div class="top-inner">
+        <h1 class="top-title">Likto Chung</h1>
+        <a class="back-link" href="/">Back to Portfolio</a>
+      </div>
+    </header>
+
+    <main class="content">
+      <h2 class="intro-title">Other Services</h2>
+      <p class="intro-text">Quick links to other platforms hosted on my infrastructure.</p>
+
+      <section class="cards">
+        <article class="card">
+          <h2>Get Movies</h2>
+          <p>Search and request media through the service portal.</p>
+          <a href="https://get.movies.likto.uk" target="_blank" rel="noopener noreferrer">get.movies.likto.uk</a>
+        </article>
+
+        <article class="card">
+          <h2>Movies</h2>
+          <p>Browse and stream your hosted movie library.</p>
+          <a href="https://movies.likto.uk" target="_blank" rel="noopener noreferrer">movies.likto.uk</a>
+        </article>
+
+        <article class="card">
+          <h2>Files</h2>
+          <p>Access and manage your hosted file services.</p>
+          <a href="https://files.likto.uk" target="_blank" rel="noopener noreferrer">files.likto.uk</a>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
