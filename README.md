@@ -21,8 +21,7 @@ Open **`src/data/siteContent.js`** and change:
 - **experience** — jobs (company, role, dates, bullets, optional URL)
 - **projects** — name, type (`webapp` | `embedded` | `migration`), role, description, tech, outcome, links
 - **education** — institution, degree, years, notes
-- **contact** — email, phone, location, link list (e.g. LinkedIn, GitHub)
-- **site** — page title, footer text
+- **site** — page title, footer text, footer contact details (`footerContact`)
 
 No need to touch components unless you want to change layout or behaviour.
 
@@ -38,3 +37,40 @@ Output is in `dist/`. Deploy that folder to any static host.
 
 1. Put your image in `public/` (e.g. `public/avatar.jpg`).
 2. In `siteContent.js`, set `hero.avatar` to `'/avatar.jpg'`.
+
+## Docker deploy (Ubuntu + likto.uk)
+
+This repo includes a production Docker setup using Caddy (HTTPS handled automatically via Let's Encrypt).
+
+### 1) DNS
+
+At your domain provider, set:
+
+- `A` record `@` -> your Ubuntu server public IP
+- `A` record `www` -> your Ubuntu server public IP
+
+### 2) Open firewall ports on Ubuntu
+
+```bash
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw enable
+```
+
+### 3) Start the stack
+
+From the project root on your Ubuntu server:
+
+```bash
+docker compose up -d --build
+```
+
+### 4) Verify
+
+- https://likto.uk
+- https://www.likto.uk
+
+### Notes
+
+- If another service already uses ports `80/443` (for example host Nginx/Apache), stop it or move it.
+- Caddy certificate data is persisted in Docker volumes (`caddy_data`, `caddy_config`).
