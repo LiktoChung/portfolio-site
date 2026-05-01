@@ -1,7 +1,13 @@
 <template>
   <header class="hero" id="hero">
     <div class="hero-inner">
-      <img v-if="hero.avatar" :src="hero.avatar" alt="" class="hero-avatar" />
+      <img
+        v-if="hero.avatar"
+        :src="hero.avatar"
+        alt=""
+        class="hero-avatar"
+        @click="onAvatarClick"
+      />
       <h1 class="hero-name">{{ hero.name }}</h1>
       <p class="hero-title">{{ hero.title }}</p>
       <p class="hero-tagline">{{ hero.tagline }}</p>
@@ -12,6 +18,27 @@
 
 <script setup>
 import { hero } from '../data/siteContent.js'
+
+const OTHER_PATH = '/other.html'
+const CLICKS_NEEDED = 5
+/** Clicks must land within this many ms of the previous click to count as "in a row". */
+const CLICK_GAP_MS = 2000
+
+let avatarClickStreak = 0
+let lastAvatarClickAt = 0
+
+function onAvatarClick() {
+  const now = Date.now()
+  if (now - lastAvatarClickAt > CLICK_GAP_MS) {
+    avatarClickStreak = 0
+  }
+  lastAvatarClickAt = now
+  avatarClickStreak += 1
+  if (avatarClickStreak >= CLICKS_NEEDED) {
+    avatarClickStreak = 0
+    window.location.assign(OTHER_PATH)
+  }
+}
 </script>
 
 <style scoped>
