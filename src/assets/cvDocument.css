@@ -1,0 +1,288 @@
+/* CV / PDF — fills A4 height without tiny “postage stamp” scaling */
+@page {
+  size: A4;
+  margin: 6mm;
+}
+
+@media print {
+  body {
+    margin: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+}
+
+.cv-pdf,
+.cv-pdf * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  /* Wrap at spaces only; avoid mid-word splits from “anywhere” / auto hyphens */
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+/*
+ * ~272mm ≈ printable height (A4 297mm − 6mm top/bottom PDF margins × 2, minus a little slack).
+ * Makes the captured canvas ~full page tall so html2pdf doesn’t scale a short strip into the top band.
+ */
+.cv-pdf {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-height: 272mm;
+  margin: 0;
+  padding: 7mm 9mm 10mm;
+  background: #fff;
+  color: #1a1a24;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.42;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0;
+}
+
+.cv-header {
+  margin-bottom: 0;
+  padding-bottom: 0.55rem;
+  border-bottom: 1.5px solid #2d3a4f;
+  flex-shrink: 0;
+}
+
+.cv-header-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.cv-header-main--no-avatar .cv-header-text {
+  flex: 1 1 auto;
+}
+
+.cv-avatar {
+  width: 18mm;
+  height: 18mm;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.cv-header-text {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.cv-name {
+  margin: 0 0 0.14rem;
+  font-size: 19pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+.cv-title {
+  margin: 0 0 0.14rem;
+  font-size: 11pt;
+  font-weight: 600;
+  color: #1e6b4e;
+}
+
+.cv-tagline {
+  margin: 0;
+  font-size: 10.25pt;
+  color: #3d4454;
+  line-height: 1.34;
+}
+
+/* Top-right: email → location → phone, beside stacked social + icons */
+.cv-header-aside {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.65rem;
+  flex-shrink: 0;
+  margin-left: auto;
+  max-width: 42%;
+}
+
+.cv-contact-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  text-align: right;
+  font-size: 9.25pt;
+  color: #2d3a4f;
+  line-height: 1.25;
+}
+
+.cv-contact-line {
+  margin: 0;
+  max-width: 100%;
+}
+
+.cv-contact-line a {
+  color: #1e6b4e;
+  text-decoration: none;
+}
+
+.cv-social-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-left: 0.55rem;
+  border-left: 1px solid #c5cdd8;
+}
+
+.cv-social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.32rem;
+  color: #1e6b4e;
+  text-decoration: none;
+  font-size: 9pt;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.cv-social-icon {
+  width: 3.6mm;
+  height: 3.6mm;
+  flex-shrink: 0;
+}
+
+.cv-social-label {
+  white-space: nowrap;
+}
+
+.cv-section {
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+.cv-h2 {
+  margin: 0 0 0.32rem;
+  font-size: 10.75pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #2d3a4f;
+  border-bottom: 1px solid #c5cdd8;
+  padding-bottom: 0.12rem;
+}
+
+.cv-h3 {
+  margin: 0;
+  font-size: 10.25pt;
+  font-weight: 600;
+  color: #1a1a24;
+  line-height: 1.28;
+}
+
+.cv-section--profile .cv-list {
+  font-size: 10pt;
+  line-height: 1.38;
+}
+
+.cv-meta {
+  margin: 0.32rem 0 0;
+  font-size: 9.5pt;
+  color: #3d4454;
+}
+
+.cv-list {
+  margin: 0.22rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.cv-list li {
+  margin-bottom: 0.2rem;
+}
+
+.cv-list-tight li {
+  margin-bottom: 0.14rem;
+}
+
+/* Single column — uses vertical space and reads better in PDF */
+.cv-skills-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.48rem;
+}
+
+.cv-skills-stack .cv-skill-group {
+  margin-top: 0;
+}
+
+.cv-skill-items {
+  margin: 0.12rem 0 0;
+  font-size: 9.65pt;
+  color: #2d3748;
+  line-height: 1.38;
+}
+
+.cv-job {
+  margin-top: 0.5rem;
+}
+
+.cv-job:first-of-type {
+  margin-top: 0.26rem;
+}
+
+.cv-job-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.2rem 0.6rem;
+}
+
+.cv-job-role {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.cv-dates {
+  font-size: 9.5pt;
+  color: #5a6578;
+  flex-shrink: 0;
+}
+
+.cv-company {
+  margin: 0.1rem 0 0.18rem;
+  font-size: 10.25pt;
+  font-weight: 500;
+  color: #2d3a4f;
+}
+
+.cv-company a {
+  color: #1e6b4e;
+  text-decoration: none;
+}
+
+.cv-section--experience .cv-list {
+  font-size: 9.85pt;
+  line-height: 1.38;
+}
+
+.cv-edu {
+  margin-top: 0.4rem;
+}
+
+.cv-edu:first-of-type {
+  margin-top: 0.18rem;
+}
+
+.cv-edu .cv-desc {
+  margin: 0.12rem 0 0;
+  font-size: 9.65pt;
+  line-height: 1.36;
+}

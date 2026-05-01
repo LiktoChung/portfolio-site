@@ -11,21 +11,58 @@
       <h1 class="hero-name">{{ hero.name }}</h1>
       <p class="hero-title">{{ hero.title }}</p>
       <p class="hero-tagline">{{ hero.tagline }}</p>
-      <a v-if="hero.ctaText" :href="hero.ctaHref" class="hero-cta">{{ hero.ctaText }}</a>
+      <div class="hero-actions">
+        <a v-if="hero.ctaText" :href="hero.ctaHref" class="hero-cta">{{ hero.ctaText }}</a>
+        <button
+          type="button"
+          class="hero-pdf"
+          :disabled="pdfLoading"
+          @click="onDownloadPdf"
+        >
+          {{ pdfLoading ? 'Generating PDF…' : 'Download CV (PDF)' }}
+        </button>
+      </div>
     </div>
   </header>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { hero } from '../data/siteContent.js'
+import { downloadPortfolioPdf } from '../lib/cvPdf.js'
 
 const OTHER_PATH = '/other.html'
 const CLICKS_NEEDED = 5
 /** Clicks must land within this many ms of the previous click to count as "in a row". */
 const CLICK_GAP_MS = 2000
 
+const pdfLoading = ref(false)
+
 let avatarClickStreak = 0
 let lastAvatarClickAt = 0
+
+function cvPdfFilename() {
+  const base = hero.name
+    .replace(/[^a-zA-Z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+  return `${base || 'Portfolio'}-CV.pdf`
+}
+
+async function onDownloadPdf() {
+  if (pdfLoading.value) return
+  pdfLoading.value = true
+  try {
+    await downloadPortfolioPdf({ filename: cvPdfFilename() })
+  } catch (err) {
+    console.error(err)
+    window.alert(
+      'Could not create the PDF. You can try again, or use your browser’s Print dialog and choose “Save as PDF”.',
+    )
+  } finally {
+    pdfLoading.value = false
+  }
+}
 
 function onAvatarClick() {
   const now = Date.now()
@@ -80,6 +117,13 @@ function onAvatarClick() {
   margin: 0 0 1.5rem;
   line-height: 1.5;
 }
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
 .hero-cta {
   display: inline-block;
   padding: 0.6rem 1.25rem;
@@ -92,5 +136,25 @@ function onAvatarClick() {
 }
 .hero-cta:hover {
   opacity: 0.9;
+}
+.hero-pdf {
+  display: inline-block;
+  padding: 0.55rem 1.2rem;
+  background: transparent;
+  color: var(--accent, #42b883);
+  border: 2px solid var(--accent, #42b883);
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+.hero-pdf:hover:not(:disabled) {
+  background: rgba(66, 184, 131, 0.12);
+}
+.hero-pdf:disabled {
+  opacity: 0.65;
+  cursor: wait;
 }
 </style>
